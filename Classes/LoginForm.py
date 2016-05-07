@@ -5,8 +5,8 @@ import json
 
 
 class LoginForm(GUIWrapper):
-    size = (200, 200)
-    visible = True
+    size = (800, 600)
+    visible = False
 
     def __init__(self, pos, screen, ws):
         # Веб-сокет
@@ -27,7 +27,7 @@ class LoginForm(GUIWrapper):
 
     def send_username(self, message):
         print(self.username_field.value)
-        self.ws.send(json.dumps({"type": "auth", "data": {"username": self.username_field.value}}))
+        self.ws.ws.send(json.dumps({"type": "auth", "data": {"username": self.username_field.value}}))
         self.visible = False
 
     def event(self, event):

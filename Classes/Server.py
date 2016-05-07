@@ -3,6 +3,7 @@ from ws_events import *
 import json
 import websocket
 import threading
+from settings import *
 
 
 class Server:
@@ -12,8 +13,7 @@ class Server:
         self.ws = None
 
     def connect(self):
-        # TODO: заменить адрес и порт сервера
-        self.ws = websocket.WebSocketApp("ws://192.168.1.101:8888/websocket",
+        self.ws = websocket.WebSocketApp("ws://" + HOST + ":" + PORT + "/websocket",
                                          on_data=Server.on_data, on_error=Server.on_errors)
         threading.Thread(target=self.ws.run_forever).start()
 

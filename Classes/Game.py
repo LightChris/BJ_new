@@ -9,31 +9,34 @@ from Classes.Player import *
 from utilities import load_image
 from Classes.Server import Server
 from Classes.LoginForm import LoginForm
+from Classes.ConnectForm import ConnectForm
 
 
 class Game:
-    def __init__(self, ws):
+    def __init__(self, server):
         pygame.init()
         self.screen = pygame.display.set_mode((RESX, RESY), 0, 32)
         pygame.display.set_caption("BlackJack v0.1.0a")
         self.run = True
         self.deck_image = load_image(path=os.path.join("images", "cards"), name="back.png")
         self.deck_pos = (600, 50)
-        self.ws = ws
+        self.server = server
         # self.ws.connect()
 
         # Кнопки gui:
         self.app = app = gui.App()
         self.rect = pygame.Rect((300, 550, 175, 25))
-        connect_button = gui.Button("Connect")
-        connect_button.connect(gui.CLICK, self.but_connect)
+        # connect_button = gui.Button("Connect")
+        # connect_button.connect(gui.CLICK, self.but_connect)
         table = gui.Table()
-        table.td(connect_button)
+        # table.td(connect_button)
         app.init(widget=table, screen=self.screen, area=self.rect)
 
-        # login form
-        self.login_form = LoginForm((200, 200), self.screen, self.ws)
+        # connect form
+        self.connect_form = ConnectForm((0, 0), self.screen, self.server)
 
+        # login form
+        self.login_form = LoginForm((0, 0), self.screen, self.server)
 
         # Колода
         self.deck = Deck()
@@ -54,24 +57,26 @@ class Game:
         # for player in self.players:
         #     player.add_cards()
         #     player.add_cards()
-        self.dealer.add_cards()
-        self.dealer.add_cards()
+        # self.dealer.add_cards()
+        # self.dealer.add_cards()
 
-    def but_connect(self):
-        print("Connect")
-        self.ws.connect()
+    # def but_connect(self):
+    #     print("Connect")
+    #     self.ws.connect()
 
     def add_player(self, id):
         player = Player((self.players_position[id-1]), self.deck)
         self.players.append(player)
 
     def render(self, screen):
+        self.connect_form.render(screen)
+        self.login_form.render(screen)
         screen.blit(self.deck_image, self.deck_pos)
         self.app.paint()
-        self.login_form.render(screen)
 
     def event(self, event):
         self.app.event(event)
+        self.connect_form.event(event)
         self.login_form.event(event)
 
     def mainloop(self):

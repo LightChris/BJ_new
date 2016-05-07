@@ -1,20 +1,20 @@
-import threading
 import pygame
 from pgu import gui
 from .GUIWrapper import GUIWrapper
-from ..ws_events import *
+from ws_events import *
 
 
 class ConnectForm(GUIWrapper):
-    size = (200, 100)
+    visible = True
+    size = (800, 600)
 
     def __init__(self, pos, screen, ws):
         # Веб-сокет
         self.ws = ws
+        self.info_text = gui.Label(".....................................")
         GUIWrapper.__init__(self, pos, screen)
 
     def create_components(self):
-        self.info_text = gui.Label(".....................................")
         self.info_text.style.width = 200
         self.info_text.style.height = 400
         button_connect = gui.Button('Connect')
@@ -29,8 +29,7 @@ class ConnectForm(GUIWrapper):
         self.pack_manager = table
 
     def connect(self, message):
-        # print('Connect')
-        threading.Thread(target=self.ws.run_forever).start()
+        self.ws.connect()
 
     def event(self, event):
         # print(event.type)
