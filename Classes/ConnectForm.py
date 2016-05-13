@@ -8,9 +8,9 @@ class ConnectForm(GUIWrapper):
     visible = True
     size = (800, 600)
 
-    def __init__(self, pos, screen, ws):
+    def __init__(self, pos, screen, server):
         # Веб-сокет
-        self.ws = ws
+        self.server = server
         self.info_text = gui.Label(".....................................")
         GUIWrapper.__init__(self, pos, screen)
 
@@ -29,7 +29,7 @@ class ConnectForm(GUIWrapper):
         self.pack_manager = table
 
     def connect(self, message):
-        self.ws.connect()
+        self.server.connect()
 
     def event(self, event):
         # print(event.type)

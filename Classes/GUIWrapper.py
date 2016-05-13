@@ -33,5 +33,5 @@ class GUIWrapper:
     def render(self, screen):
         if not self.visible:
             return
-        pygame.draw.rect(screen, (0, 200, 0), self.rect, 2)
+        # pygame.draw.rect(screen, (0, 200, 0), self.rect, 2)
         self.app.paint()

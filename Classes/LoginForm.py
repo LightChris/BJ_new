@@ -8,9 +8,9 @@ class LoginForm(GUIWrapper):
     size = (800, 600)
     visible = False
 
-    def __init__(self, pos, screen, ws):
+    def __init__(self, pos, screen, server):
         # Веб-сокет
-        self.ws = ws
+        self.server = server
         GUIWrapper.__init__(self, pos, screen)
 
     def create_components(self):
@@ -27,7 +27,7 @@ class LoginForm(GUIWrapper):
 
     def send_username(self, message):
         print(self.username_field.value)
-        self.ws.ws.send(json.dumps({"type": "auth", "data": {"username": self.username_field.value}}))
+        self.server.ws.send(json.dumps({"type": "auth", "data": {"username": self.username_field.value}}))
         self.visible = False
 
     def event(self, event):

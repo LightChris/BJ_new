@@ -1,5 +1,7 @@
 from Classes.Card import Card
+from utilities import load_image
 import pygame
+import os
 
 
 class Player:
@@ -14,9 +16,9 @@ class Player:
     def hand_points(self):
         return None
 
-    def add_cards(self):
+    def add_cards(self, rank, suit):
         # Добавляет карту игроку
-        card = Card(*self.deck.deal_card())
+        card = Card(rank=rank, suit=suit)
         self.cards.append(card)
 
     def render(self, screen):
