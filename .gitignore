@@ -3,6 +3,8 @@
 ### Example user template
 
 # IntelliJ project files
+/data
+/pgu
 .idea
 *.iml
 out
