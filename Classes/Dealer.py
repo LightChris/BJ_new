@@ -14,9 +14,9 @@ class Dealer:
     def hand_points(self):
         return None
 
-    def add_cards(self):
+    def add_cards(self, rank, suit):
         # Добавляет карту диллеру
-        card = Card(*self.deck.deal_card())
+        card = Card(rank=rank, suit=suit)
         self.cards.append(card)
 
     def render(self, screen):

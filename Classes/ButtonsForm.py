@@ -33,7 +33,6 @@ class ButtonsForm(GUIWrapper):
 
     def event(self, event):
         GUIWrapper.event(self, event)
-        if event.type == WS_MESSAGE:
-            print("WS_MESSAGE", event.data.get("type"))
-            if event.data.get("type") == 'id':
+        if event.type == WS_YOU_ID:
+            if event.id:
                 self.visible = True

@@ -22,9 +22,13 @@ class Server:
         # TODO: добавить обработку ошибок при некорректной data
         data = json.loads(data)
         print("data = ", data)
+        if data.get("type") == "id":
+            custom_event = pygame.event.Event(WS_YOU_ID, id=data.get('client_id'))
+            pygame.event.post(custom_event)
+            return
         # if data.get("type") == "error":
         #     Server.on_errors(data)
-        custom_event = pygame.event.Event(WS_MESSAGE, data=data, test=0)
+        custom_event = pygame.event.Event(WS_MESSAGE, data=data)
         pygame.event.post(custom_event)
 
     @staticmethod

@@ -5,8 +5,9 @@ import os
 
 
 class Player:
-    def __init__(self, pos):
+    def __init__(self, pos, id):
         self.image = pygame.Surface((400, 400), pygame.SRCALPHA)
+        self.id = id
         self.pos = pos
         self.dx = 20  # Сдвиг карты
         self.cards = []  # [Card(), Card(), ...]
