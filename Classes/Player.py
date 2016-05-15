@@ -5,9 +5,11 @@ import os
 
 
 class Player:
-    def __init__(self, pos, id):
+    def __init__(self, pos, id, name='Player'):
         self.image = pygame.Surface((400, 400), pygame.SRCALPHA)
         self.id = id
+        self.points = '0'
+        self.name = name
         self.pos = pos
         self.dx = 20  # Сдвиг карты
         self.cards = []  # [Card(), Card(), ...]
@@ -26,6 +28,7 @@ class Player:
         for card in self.cards:
             dx += self.dx
             card.render(self.image, (dx, 0))
+
         screen.blit(self.image, self.pos)
 
     @property

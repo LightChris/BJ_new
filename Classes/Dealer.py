@@ -3,9 +3,9 @@ import pygame
 
 
 class Dealer:
-    def __init__(self, pos, deck):
+    def __init__(self, pos):
         self.image = pygame.Surface((400, 400), pygame.SRCALPHA)
-        self.deck = deck
+        self.points = '0'
         self.pos = pos
         self.dx = 20  # Сдвиг карты
         self.cards = []  # [Card(), Card(), ...]
