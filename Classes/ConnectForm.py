@@ -37,9 +37,9 @@ class ConnectForm(GUIWrapper):
             print("WS_ERROR", event.error)
             self.info_text.value = "Server is not available"
         if event.type == WS_MESSAGE:
-            print("WS_MESSAGE", event.data.get("type"))
+            # print("WS_MESSAGE", event.data.get("type"))
             if event.data.get("type") == 'auth':
-                print("AUTH!")
+                print("Авторизация.")
                 custom_event = pygame.event.Event(WS_AUTH)
                 pygame.event.post(custom_event)
                 self.visible = False

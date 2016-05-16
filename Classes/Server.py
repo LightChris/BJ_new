@@ -8,8 +8,6 @@ from settings import *
 
 class Server:
     def __init__(self):
-        self.host = "127.0.0.1"
-        self.port = "8888"
         self.ws = None
 
     def connect(self):
@@ -23,11 +21,10 @@ class Server:
         data = json.loads(data)
         print("data = ", data)
         if data.get("type") == "id":
+            # custom_event = pygame.event.Event(WS_YOU_ID, id=data.get('client_id'), name=data.get('username'))
             custom_event = pygame.event.Event(WS_YOU_ID, id=data.get('client_id'))
             pygame.event.post(custom_event)
             return
-        # if data.get("type") == "error":
-        #     Server.on_errors(data)
         custom_event = pygame.event.Event(WS_MESSAGE, data=data)
         pygame.event.post(custom_event)
 

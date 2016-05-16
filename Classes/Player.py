@@ -19,6 +19,10 @@ class Player:
         card = Card(rank=rank, suit=suit)
         self.cards.append(card)
 
+    def restart(self):
+        self.image = pygame.Surface((400, 400), pygame.SRCALPHA)
+        self.cards = []
+
     def render(self, screen):
         """
         Отображение поля и карт игрока на нем

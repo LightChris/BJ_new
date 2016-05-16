@@ -24,12 +24,13 @@ class ButtonsForm(GUIWrapper):
         self.pack_manager = table
 
     def hit(self):
-        print("Hit!")
+        print("Еще.")
         self.server.ws.send(json.dumps({"type": "hit"}))
 
     def stand(self):
-        print("Stand!")
+        print("Хватит.")
         self.server.ws.send(json.dumps({"type": "stand"}))
+        self.visible = False
 
     def event(self, event):
         GUIWrapper.event(self, event)
