@@ -1,6 +1,4 @@
-import random
 from utilities import load_image
-# from settings import PATH
 
 
 class Card:

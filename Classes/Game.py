@@ -18,7 +18,7 @@ class Game:
     def __init__(self, server):
         pygame.init()
         self.screen = pygame.display.set_mode((RESX, RESY), 0, 32)
-        pygame.display.set_caption("BlackJack v0.1.0a")
+        pygame.display.set_caption("BlackJack v0.5.7b")
         self.myFont = pygame.font.SysFont("None", 16, bold=False, italic=False)
         self.run = True
         self.deck_image = load_image(path=os.path.join("images", "cards"), name="back.png")
@@ -34,7 +34,7 @@ class Game:
         # login form
         self.login_form = LoginForm((0, 0), self.screen, self.server)
 
-        # Список игроков
+        # Игроки, Диллер
         self.players_position = [(275, 400), (25, 400), (525, 400)]
         self.dealer_position = (250, 75)
         self.current_player = None
@@ -55,14 +55,8 @@ class Game:
         self.dealer.render(screen)
         if self.current_player:
             self.current_player.render(screen)
-            current_player_font = self.myFont.render(self.current_player.name + '  ' +
-                                                     self.current_player.points + '/21', 0, (0, 0, 0))
-            screen.blit(current_player_font, (295, 390))
         for player in self.other_players:
             player.render(screen)
-            current_player_font = self.myFont.render(player.name + '  ' +
-                                                     player.points + '/21', 0, (0, 0, 0))
-            screen.blit(current_player_font, (player.pos[0] + 20, player.pos[1] - 10))
         screen.blit(self.deck_image, self.deck_pos)
 
     def event(self, event):
@@ -87,17 +81,38 @@ class Game:
                 card = event.data.get('card')
                 print('card =', card)
                 self.dealer.add_cards(card[0], card[1])
-            elif event.data.get('points') and event.data.get('id') == self.current_id:
-                self.current_player.points = event.data.get('points')
+            elif event.data.get('id') != self.current_id:
+                for player in self.other_players:
+                    if player.id == event.data.get('id'):
+                        player.points = str(event.data.get('points'))
+            elif self.current_player:
+                if event.data.get('id') == self.current_id:
+                    self.current_player.points = str(event.data.get('points'))
             elif event.data.get('type') == 'bust':
-                # self.buttons_form.visible = False
-                pass
+                self.buttons_form.visible = False
+                print("У вас перебор, ход закончен.")
             elif event.data.get('type') == 'stand':
-                # self.buttons_form.visible = False
-                pass
-            for player in self.other_players:
-                if event.data.get('points') and event.data.get('id') == player.id:
-                    player.points = event.data.get('points')
+                self.buttons_form.visible = False
+                print("Конец хода.")
+            elif event.data.get('type') == 'game_over':
+                if event.data.get('id') == self.current_id:
+                    print('Вы выиграли.')
+            elif event.data.get('type') == 'game_over':
+                if event.data.get('id') != self.current_id:
+                    print('Вы проиграли.')
+            elif event.data.get('type') == 'new_game':
+                self.current_player.cards = []
+                for player in self.other_players:
+                    player.cards = []
+                    self.buttons_form.visible = True
+            elif event.data.get('id') == self.current_id:
+                name = event.data.get('name')
+                self.current_player.name = name
+            elif event.data.get('id') != self.current_id:
+                for player in self.other_players:
+                    if player.id == event.data.get('id'):
+                        name = event.data.get('name')
+                        player.name = name
             for player in self.other_players:
                 if event.data.get('type') == 'hit' and player.id == event.data.get('id'):
                     card = event.data.get('card')

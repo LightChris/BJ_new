@@ -1,6 +1,5 @@
 import os
 import pygame
-# from Classes.Player import *
 
 
 def load_image(path, name, alpha_channel=True):
