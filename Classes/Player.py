@@ -20,6 +20,9 @@ class Player:
         self.cards.append(card)
 
     def restart(self):
+        """
+        "Обнуляет" игрока
+        """
         self.image = pygame.Surface((400, 400), pygame.SRCALPHA)
         self.cards = []
 

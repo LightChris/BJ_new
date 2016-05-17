@@ -121,7 +121,6 @@ class Game:
                     card = event.data.get('card')
                     player.add_cards(card[0], card[1])
 
-
     def mainloop(self):
         while self.run:
             for event in pygame.event.get():
